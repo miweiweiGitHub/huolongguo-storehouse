@@ -1,0 +1,22 @@
+{
+  "testlog": {
+    "properties": {
+      "ipAddress": {
+        "type": "ip"
+      },
+      "name": {
+        "type": "keyword"
+      },
+      "phone": {
+        "type": "keyword"
+      },
+      "requestParam": {
+        "type": "text"
+      },
+      "testTime": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      }
+    }
+  }
+}

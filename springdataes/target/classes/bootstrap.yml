@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: springdataes
+    abbname: M
