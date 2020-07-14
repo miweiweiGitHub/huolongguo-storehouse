@@ -37,16 +37,17 @@ public class CommonUtil {
 
         Calendar instance = Calendar.getInstance();
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH_mm");
+        //yyyy_M_dd_HH_mm
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
         String format = simpleDateFormat.format(instance.getTime());
-
+        log.info("get getYearMonthStr :{}",format);
         return format;
     }
 
     public static String getNextMonthStr(){
         Calendar instance = Calendar.getInstance();
         instance.add(instance.MINUTE,1);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH_mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
         String format = simpleDateFormat.format(instance.getTime());
         return format;
     }
@@ -54,7 +55,7 @@ public class CommonUtil {
     public static String getPreMonthStr(){
         Calendar instance = Calendar.getInstance();
         instance.add(instance.MINUTE,-1);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH_mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
         String format = simpleDateFormat.format(instance.getTime());
         return format;
     }
@@ -65,11 +66,9 @@ public class CommonUtil {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("phone","18688736689");
         jsonObject.put("name","火龙果test");
-        jsonObject.put("ipAddress","127.0.0.1");
+        jsonObject.put("testTime", LocalDateTime.now());
         jsonObject.put("requestParam","乘风破浪会有时，直挂云帆济沧海");
-        DateTimeFormatter ss =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String format = LocalDateTime.now().format(ss);
-        jsonObject.put("testTime",format);
+        jsonObject.put("ipAddress","127.0.0.1");
         return JSONObject.parseObject(jsonObject.toJSONString(), TestLog.class);
     }
 
@@ -128,9 +127,8 @@ public class CommonUtil {
     }
 
     public static void main(String[] args) {
-        String nextMonthStr = getNextMonthStr();
-        DateTimeFormatter ss =  DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String format = LocalDateTime.now().format(ss);
-        System.out.println(LocalDateTime.parse(format,ss));
+
+        System.out.println(getTestLog());
+
     }
 }
