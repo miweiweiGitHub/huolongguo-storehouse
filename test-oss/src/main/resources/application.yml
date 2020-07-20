@@ -1,0 +1,12 @@
+oos:
+  endpoint: oss-cn-shanghai.aliyuncs.com
+  keyid:    xxxxxxxx # 填写刚刚生成的AccessKey
+  keysecret: xxxxxxx  # 填写刚刚生成的Accesssecret
+  bucketname: 2019131 # bucket名称
+  filehost: 11111    #bucket下文件夹的路径
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB

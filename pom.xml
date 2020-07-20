@@ -13,6 +13,9 @@
 
   <modules>
     <module>springdataes</module>
+      <module>xxl-job</module>
+      <module>test-oss</module>
+      <module>spring-oauth</module>
   </modules>
 
 

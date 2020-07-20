@@ -3,9 +3,7 @@ package org.meteorite.com.base.util;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.index.query.*;
 import org.joda.time.format.DateTimeFormat;
 import org.meteorite.com.base.constant.SystemLogConstant;
 import org.meteorite.com.base.em.SystemLogSourceEnum;
@@ -20,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Random;
 
 /**
  *
@@ -36,7 +35,6 @@ public class CommonUtil {
     public static String getYearMonthStr() {
 
         Calendar instance = Calendar.getInstance();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M");
         //yyyy_M_dd_HH_mm
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
         String format = simpleDateFormat.format(instance.getTime());
@@ -44,32 +42,17 @@ public class CommonUtil {
         return format;
     }
 
-    public static String getNextMonthStr(){
+    /**
+     * 获取下一个月
+     * @return
+     */
+    public static String getPlusMonthStr(){
         Calendar instance = Calendar.getInstance();
-        instance.add(instance.MINUTE,1);
+        instance.add(instance.HOUR,1);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
         String format = simpleDateFormat.format(instance.getTime());
+        log.info("get getPlusMonthStr :{}",format);
         return format;
-    }
-
-    public static String getPreMonthStr(){
-        Calendar instance = Calendar.getInstance();
-        instance.add(instance.MINUTE,-1);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
-        String format = simpleDateFormat.format(instance.getTime());
-        return format;
-    }
-
-
-    public static TestLog getTestLog() {
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("phone","18688736689");
-        jsonObject.put("name","火龙果test");
-        jsonObject.put("testTime", LocalDateTime.now());
-        jsonObject.put("requestParam","乘风破浪会有时，直挂云帆济沧海");
-        jsonObject.put("ipAddress","127.0.0.1");
-        return JSONObject.parseObject(jsonObject.toJSONString(), TestLog.class);
     }
 
     public static Pageable getPageable(String sortName, int page, int size) {
@@ -110,8 +93,13 @@ public class CommonUtil {
         }
         String requestParam = baseLogQueryReq.getRequestParam();
         if (StringUtils.isNotBlank(requestParam)) {
-            //模糊匹配
-            boolQueryBuilder.must(QueryBuilders.matchQuery(SystemLogConstant.QueryCondition.REQUEST_PARAM, requestParam));
+            //模糊匹配 完整匹配查询字段
+            MatchPhraseQueryBuilder requestParamQuery = QueryBuilders.matchPhraseQuery(SystemLogConstant.QueryCondition.REQUEST_PARAM, requestParam);
+//            //模糊匹配
+//            MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SystemLogConstant.QueryCondition.REQUEST_PARAM, requestParam);
+//            //匹配完整的查询字段
+//            matchQueryBuilder.operator(Operator.AND);
+            boolQueryBuilder.must(requestParamQuery);
         }
         String requestType = baseLogQueryReq.getRequestType();
         if (StringUtils.isNotBlank(requestType)) {
@@ -119,16 +107,23 @@ public class CommonUtil {
         }
         String keyWord = baseLogQueryReq.getKeyWord();
         if (StringUtils.isNotBlank(keyWord)) {
-            //模糊匹配
-            boolQueryBuilder.must(QueryBuilders.matchQuery(SystemLogConstant.QueryCondition.KEY_WORD, keyWord));
+            //模糊匹配 完整匹配查询字段
+            MatchPhraseQueryBuilder keyWordQuery = QueryBuilders.matchPhraseQuery(SystemLogConstant.QueryCondition.KEY_WORD, keyWord);
+
+            //            //模糊匹配
+//            MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery(SystemLogConstant.QueryCondition.KEY_WORD, keyWord);
+//            //匹配完整的查询字段
+//            matchQueryBuilder.operator(Operator.AND);
+            boolQueryBuilder.must(keyWordQuery);
         }
 
         return boolQueryBuilder;
     }
 
+
     public static void main(String[] args) {
-
-        System.out.println(getTestLog());
-
+        Random random = new Random();
+        int i = random.nextInt(10);
+        log.info("test:{}",i);
     }
 }
