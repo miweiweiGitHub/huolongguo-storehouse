@@ -1,8 +1,8 @@
 oos:
-  endpoint: oss-cn-shanghai.aliyuncs.com
-  keyid:    xxxxxxxx # 填写刚刚生成的AccessKey
-  keysecret: xxxxxxx  # 填写刚刚生成的Accesssecret
-  bucketname: 2019131 # bucket名称
+  endpoint: oss-cn-shenzhen.aliyuncs.com
+  keyid: LTAICo6hn8IO49m0 # 填写刚刚生成的AccessKey
+  keysecret: A8cLCD97qc9NXGbtPKyc0QUz8zm98R  # 填写刚刚生成的Accesssecret
+  bucketname: app-aishang # bucket名称
   filehost: 11111    #bucket下文件夹的路径
 
 spring:
