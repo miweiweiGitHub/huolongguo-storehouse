@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.meteorite.com</groupId>
-    <artifactId>springdataes</artifactId>
+    <artifactId>spring-data-es</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>springdataes</name>
+    <name>spring-data-es</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 

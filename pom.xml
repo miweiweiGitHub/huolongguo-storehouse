@@ -12,7 +12,7 @@
 
 
   <modules>
-    <module>springdataes</module>
+     <module>spring-data-es</module>
       <module>xxl-job</module>
       <module>test-oss</module>
       <module>spring-oauth</module>
