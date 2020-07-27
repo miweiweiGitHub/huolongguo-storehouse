@@ -16,6 +16,8 @@
       <module>xxl-job</module>
       <module>test-oss</module>
       <module>spring-oauth</module>
+      <module>test-mybatis</module>
+      <module>test-kafaka</module>
   </modules>
 
 

@@ -1,4 +1,4 @@
-package org.meteorite.com.controller;
+package org.meteorite.com.controller.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.meteorite.com.dto.FileDTO;
@@ -14,13 +14,18 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/oss/base/")
-public class OssController {
+@RequestMapping("/oss/object/")
+public class OssObjectController {
 
     @Autowired
     FileService fileService;
 
-    /** 文件上传*/
+
+    /**
+     * object上传
+     * @param file
+     * @return
+     */
     @PostMapping(value = "/uploadFile")
     public FileDTO uploadBlog(MultipartFile file) {
         log.info("文件上传");
@@ -47,13 +52,56 @@ public class OssController {
         return null;
     }
 
-    @GetMapping("/getObjectList")
+    //    查看、罗列、删除、批量删除Object
+
+    /**
+     * 查看
+     * @return
+     */
+    @GetMapping("/catObject")
     @ResponseBody
-    public List<String> getObjectList() {
+    public List<String> catObject() {
         List<String> objectList = fileService.getObjectList();
         return objectList;
 
     }
+
+    /**
+     * 罗列
+     * @return
+     */
+    @GetMapping("/listObject")
+    @ResponseBody
+    public List<String> listObject() {
+        List<String> objectList = fileService.getObjectList();
+        return objectList;
+
+    }
+
+    /**
+     * 删除
+     * @return
+     */
+    @GetMapping("/removeObject")
+    @ResponseBody
+    public List<String> removeObject() {
+        List<String> objectList = fileService.getObjectList();
+        return objectList;
+
+    }
+
+    /**
+     * 批量删除
+     * @return
+     */
+    @GetMapping("/removeListObject")
+    @ResponseBody
+    public List<String> removeListObject() {
+        List<String> objectList = fileService.getObjectList();
+        return objectList;
+
+    }
+
 
 
 }

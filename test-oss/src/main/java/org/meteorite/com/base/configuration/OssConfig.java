@@ -1,5 +1,6 @@
 package org.meteorite.com.base.configuration;
 
+import com.aliyun.oss.OSSClient;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,11 @@ public class OssConfig {
     //bucket下文件夹的路径
     private  String filehost;
     //文件访问路径
-    private  String webUrl;
+    private  String viewurl;
 
+
+    public OSSClient getOssClient() {
+        return new OSSClient(this.endpoint, this.keyid, this.keysecret);
+    }
 
 }

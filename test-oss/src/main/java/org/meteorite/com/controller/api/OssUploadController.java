@@ -1,27 +1,35 @@
-package org.meteorite.com.controller;
+package org.meteorite.com.controller.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.meteorite.com.dto.FileDTO;
 import org.meteorite.com.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.List;
 
 
 @Slf4j
 @RestController
-@RequestMapping("/oss/base/")
-public class OssController {
+@RequestMapping("/oss/upload/")
+public class OssUploadController {
+
+
+//
+//    n  对于大文件支持分片上传（Multi-Part Upload）
+
+//
+//    n  访问时支持If-Modified-Since和If-Match等HTTP参数
 
     @Autowired
     FileService fileService;
 
     /** 文件上传*/
-    @PostMapping(value = "/uploadFile")
+    @PostMapping(value = "/file")
     public FileDTO uploadBlog(MultipartFile file) {
         log.info("文件上传");
         String filename = file.getOriginalFilename();
@@ -47,13 +55,9 @@ public class OssController {
         return null;
     }
 
-    @GetMapping("/getObjectList")
-    @ResponseBody
-    public List<String> getObjectList() {
-        List<String> objectList = fileService.getObjectList();
-        return objectList;
 
-    }
+
+
 
 
 }

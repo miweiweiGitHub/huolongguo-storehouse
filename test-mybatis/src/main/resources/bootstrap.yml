@@ -1,6 +1,4 @@
-
-
 spring:
   application:
-    name: test-oss
+    name: test-mybatis
     abbname: M
