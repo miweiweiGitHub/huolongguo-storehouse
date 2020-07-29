@@ -18,6 +18,7 @@
       <module>spring-oauth</module>
       <module>test-mybatis</module>
       <module>test-kafaka</module>
+      <module>test-wx</module>
   </modules>
 
 
