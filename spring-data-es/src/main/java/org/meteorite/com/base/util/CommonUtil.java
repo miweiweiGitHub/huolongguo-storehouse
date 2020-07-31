@@ -1,22 +1,18 @@
 package org.meteorite.com.base.util;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.index.query.*;
-import org.joda.time.format.DateTimeFormat;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchPhraseQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.meteorite.com.base.constant.SystemLogConstant;
-import org.meteorite.com.base.em.SystemLogSourceEnum;
-import org.meteorite.com.domain.entity.TestLog;
 import org.meteorite.com.dto.BaseLogQueryReq;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -36,7 +32,7 @@ public class CommonUtil {
 
         Calendar instance = Calendar.getInstance();
         //yyyy_M_dd_HH_mm
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M");
         String format = simpleDateFormat.format(instance.getTime());
         log.info("get getYearMonthStr :{}",format);
         return format;
@@ -48,8 +44,8 @@ public class CommonUtil {
      */
     public static String getPlusMonthStr(){
         Calendar instance = Calendar.getInstance();
-        instance.add(instance.HOUR,1);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M_dd_HH");
+        instance.add(instance.MONTH,1);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_M");
         String format = simpleDateFormat.format(instance.getTime());
         log.info("get getPlusMonthStr :{}",format);
         return format;

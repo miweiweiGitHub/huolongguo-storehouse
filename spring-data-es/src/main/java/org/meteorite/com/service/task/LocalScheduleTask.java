@@ -69,7 +69,7 @@ public class LocalScheduleTask {
         log.info("local task createMapping end *************** ");
     }
 
-    @Scheduled(cron = "0 0/1 * * * ? ")
+//    @Scheduled(cron = "0 0/1 * * * ? ")
     private void saveTestLog() {
 
         Random random = new Random();
@@ -85,7 +85,7 @@ public class LocalScheduleTask {
         log.info("local save test log end *************** ");
     }
 
-    @Scheduled(cron = "0 0/5 * * * ? ")
+//    @Scheduled(cron = "0 0/5 * * * ? ")
     private void checkMapping() {
 
         log.info("local task checkMapping start *************** ");
