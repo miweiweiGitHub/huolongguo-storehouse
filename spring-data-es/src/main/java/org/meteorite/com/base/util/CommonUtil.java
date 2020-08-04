@@ -1,5 +1,8 @@
 package org.meteorite.com.base.util;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
+import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -7,12 +10,15 @@ import org.elasticsearch.index.query.MatchPhraseQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.meteorite.com.base.constant.SystemLogConstant;
+import org.meteorite.com.domain.entity.City;
+import org.meteorite.com.domain.entity.Country;
 import org.meteorite.com.dto.BaseLogQueryReq;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -22,6 +28,16 @@ import java.util.Random;
 @Slf4j
 public class CommonUtil {
 
+    /**
+     * 获取当前年  动态索引后缀
+     *
+     * @return 年
+     */
+    public static String getYearStr() {
+        int year = LocalDateTime.now().getYear();
+        log.info("CommonUtil  getYearStr:{}",year);
+        return String.valueOf(year);
+    }
 
     /**
      * 获取当前年月
@@ -121,5 +137,28 @@ public class CommonUtil {
         Random random = new Random();
         int i = random.nextInt(10);
         log.info("test:{}",i);
+
+        Country country = new Country();
+        country.setName("中国");
+        country.setEnName("china");
+        country.setTestTime(LocalDateTime.now());
+        City city1 = new City();
+        City city2 = new City();
+        City city3 = new City();
+        city1.setTestTime(LocalDateTime.now());
+        city1.setEnName("shenzhen");
+        city1.setName("深圳");
+
+        city2.setTestTime(LocalDateTime.now());
+        city2.setEnName("beijing");
+        city2.setName("北京");
+
+        city3.setTestTime(LocalDateTime.now());
+        city3.setEnName("guangzhou");
+        city3.setName("广州");
+
+        country.setCitys(Lists.newArrayList(city1,city2,city3));
+
+        System.out.println(JSONObject.toJSONString(country));
     }
 }

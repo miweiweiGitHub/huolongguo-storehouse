@@ -47,7 +47,7 @@ public class Country implements Serializable  {
     private String name;
 
     //城市信息
-    @Field(type = FieldType.Attachment)
+    @Field(type = FieldType.Object)
     private List<City> citys;
 
 

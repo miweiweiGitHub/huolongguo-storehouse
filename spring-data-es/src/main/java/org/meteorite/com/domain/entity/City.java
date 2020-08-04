@@ -27,8 +27,8 @@ public class City implements Serializable  {
 
     private static final long serialVersionUID = -1L;
 
-    @Id
-    private String id;
+//    @Id
+//    private String id;
 
 
     //登录时间

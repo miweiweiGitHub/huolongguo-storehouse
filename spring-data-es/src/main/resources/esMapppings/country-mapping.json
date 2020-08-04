@@ -1,0 +1,24 @@
+{
+  "country": {
+    "properties": {
+      "name": {
+        "type": "keyword"
+      },
+      "enName": {
+        "type": "keyword"
+      },
+      "testTime": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      },
+      "citys": {
+        "type": "join",
+        "relations": {
+          "question": "answer"
+        }
+      }
+    }
+  }
+}
+
+

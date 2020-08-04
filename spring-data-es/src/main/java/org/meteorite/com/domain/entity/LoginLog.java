@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
  * @since 2020-05-09
  */
 @Data
-@Document(indexName = "login_log_index_#{T(com.evergrande.cloud.hdb.infra.util.SystemLogUtil).getYearMonthStr()}",type = "loginlog")
+@Document(indexName = "login_log_index_#{T(org.meteorite.com.base.util.CommonUtil).getYearStr()}",type = "loginlog")
 public class LoginLog implements Serializable  {
 
     private static final long serialVersionUID = -1L;
@@ -40,7 +40,6 @@ public class LoginLog implements Serializable  {
     //ip地址
     @Field(type = FieldType.Ip)
     private String ipAddress;
-
 
 
 }
