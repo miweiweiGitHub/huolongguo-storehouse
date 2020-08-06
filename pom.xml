@@ -19,6 +19,7 @@
       <module>test-mybatis</module>
       <module>test-kafaka</module>
       <module>test-wx</module>
+      <module>test-mongo</module>
   </modules>
 
 

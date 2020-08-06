@@ -1,11 +1,14 @@
 package org.meteorite.com.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.meteorite.com.base.em.SystemLogSourceEnum;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHits;
 import org.meteorite.com.base.constant.SystemLogConstant;
+import org.meteorite.com.base.em.SystemLogSourceEnum;
 import org.meteorite.com.base.util.CommonUtil;
 import org.meteorite.com.base.util.DesensitizedUtils;
 import org.meteorite.com.domain.entity.TestLog;
@@ -14,10 +17,16 @@ import org.meteorite.com.dto.BaseLogQueryReq;
 import org.meteorite.com.service.SpecialSystemLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author liwei
@@ -31,6 +40,49 @@ public class TestLogServiceImpl implements SpecialSystemLogService<TestLog> {
     TestRepository testRepository;
     @Autowired
     ElasticsearchTemplate elasticsearchTemplate;
+
+
+
+    public List<Map> getHealthStatus() {
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+//        RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery("requestTime").gte("2020-07-27 18:20:03").lte("2020-07-28 18:20:03");
+//        boolQueryBuilder.must(rangeQueryBuilder);
+
+        NativeSearchQuery nativeSearchQuery = new NativeSearchQuery(boolQueryBuilder);
+        Pageable pageable = PageRequest.of(0,20);
+
+        nativeSearchQuery.addIndices(SystemLogSourceEnum.SMS_LOG.getIndexPrefix() + "2021", SystemLogSourceEnum.LOGIN_LOG.getIndexPrefix() + "2021");
+        nativeSearchQuery.setPageable(pageable);
+
+        List<Map> ss = elasticsearchTemplate.query(nativeSearchQuery, res -> {
+            SearchHits hits = res.getHits();
+            log.info("hits:{}",hits);
+            List<Map> list = new ArrayList<>();
+            Arrays.stream(hits.getHits()).forEach(h -> {
+                Map<String, Object> source = h.getSourceAsMap();
+                log.info("source:{}",JSONArray.toJSONString(source));
+                list.add(source);
+            });
+            return list;
+        });
+
+
+
+//        Client client = elasticsearchTemplate.getClient();
+//
+//        SearchRequest searchQuery = new SearchRequest();
+//        searchQuery.indices(SystemLogSourceEnum.SMS_LOG.getIndexPrefix() + "2021", SystemLogSourceEnum.LOGIN_LOG.getIndexPrefix() + "2021");
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+//        searchSourceBuilder.from(0);
+//        searchSourceBuilder.size(10);
+//        searchQuery.source(searchSourceBuilder);
+//        ActionFuture<SearchResponse> search = client.search(searchQuery);
+        log.info("result:{}", ss);
+        return ss;
+    }
+
 
     @Override
     public void add(String logBody) {
@@ -71,7 +123,7 @@ public class TestLogServiceImpl implements SpecialSystemLogService<TestLog> {
         Page<TestLog> search = testRepository.search(nativeSearchQuery);
         long end = System.currentTimeMillis();
 
-        log.info("TestLogServiceImpl loginGetPageList costTime:[{}], search list:{}",end-start, JSONObject.toJSONString(search));
+        log.info("TestLogServiceImpl loginGetPageList costTime:[{}], search list:{}", end - start, JSONObject.toJSONString(search));
         return search;
     }
 
@@ -88,17 +140,17 @@ public class TestLogServiceImpl implements SpecialSystemLogService<TestLog> {
 
     @Override
     public Page<TestLog> getDesensitizedPageList(String queryConditionBody, String fieldAuthorityResult) {
-        log.info("TestLogServiceImpl getDesensitizedPageList queryConditionBody:{},fieldAuthorityResult:{}",queryConditionBody,fieldAuthorityResult);
+        log.info("TestLogServiceImpl getDesensitizedPageList queryConditionBody:{},fieldAuthorityResult:{}", queryConditionBody, fieldAuthorityResult);
         Page<TestLog> pageList = getPageList(queryConditionBody);
 
         //判断脱敏字段权限
-        if (StringUtils.isNotBlank(fieldAuthorityResult)){
+        if (StringUtils.isNotBlank(fieldAuthorityResult)) {
 
             if (fieldAuthorityResult.contains(SystemLogConstant.DesensitizedField.PHONE_MASK_CODE)
                     && fieldAuthorityResult.contains(SystemLogConstant.DesensitizedField.NAME_MASK_CODE)) {
                 //手机号查看脱敏
                 //名字查看脱敏
-                log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}",fieldAuthorityResult,JSONObject.toJSONString(pageList));
+                log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}", fieldAuthorityResult, JSONObject.toJSONString(pageList));
                 return pageList;
             } else if (fieldAuthorityResult.contains(SystemLogConstant.DesensitizedField.PHONE_MASK_CODE)) {
                 //手机号查看脱敏，名字无脱敏
@@ -108,7 +160,7 @@ public class TestLogServiceImpl implements SpecialSystemLogService<TestLog> {
                             e.setName(dName);
                         }
                 );
-                log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}",fieldAuthorityResult,JSONObject.toJSONString(pageList));
+                log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}", fieldAuthorityResult, JSONObject.toJSONString(pageList));
                 return pageList;
             } else if (fieldAuthorityResult.contains(SystemLogConstant.DesensitizedField.NAME_MASK_CODE)) {
                 //名字查看脱敏，手机号无脱敏
@@ -118,7 +170,7 @@ public class TestLogServiceImpl implements SpecialSystemLogService<TestLog> {
                             e.setPhone(dPhone);
                         }
                 );
-                log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}",fieldAuthorityResult,JSONObject.toJSONString(pageList));
+                log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}", fieldAuthorityResult, JSONObject.toJSONString(pageList));
 
                 return pageList;
             }
@@ -134,7 +186,7 @@ public class TestLogServiceImpl implements SpecialSystemLogService<TestLog> {
                     e.setPhone(dPhone);
                 }
         );
-        log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}",fieldAuthorityResult,JSONObject.toJSONString(pageList));
+        log.info("TestLogServiceImpl getDesensitizedPageList fieldAuthorityResult:{},pageList:{}", fieldAuthorityResult, JSONObject.toJSONString(pageList));
         return pageList;
     }
 

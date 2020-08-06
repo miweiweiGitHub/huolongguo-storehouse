@@ -1,7 +1,6 @@
 package org.meteorite.com.service;
 
 
-
 import org.meteorite.com.base.em.SystemLogSourceEnum;
 import org.springframework.data.domain.Page;
 
@@ -47,5 +46,6 @@ public interface BaseSystemLogService<T> {
      * @return class
      */
     Class<T> getGenericClass();
+
 
 }
