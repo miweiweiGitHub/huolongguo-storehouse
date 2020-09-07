@@ -2,8 +2,11 @@ package org.meteorite.com;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.junit.Test;
+import org.meteorite.com.base.em.SensitiveTypeEnum;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import static org.junit.Assert.assertTrue;
 
@@ -27,9 +30,6 @@ public class AppTest
             doSomething("TEST");
         }, Executors.newFixedThreadPool(1, fixedFactory));
 
-
-
-
     }
 
     private void doSomething(String test) {
@@ -41,4 +41,18 @@ public class AppTest
         long end = System.currentTimeMillis();
         System.out.println("shouldAnswerWithTrue：" + (end - start) + "\n");
     }
+
+    @Test
+    public void enumTrue()
+    {
+
+        for (SensitiveTypeEnum value : SensitiveTypeEnum.values()) {
+//            System.out.println( value.ordinal());
+        }
+
+        System.out.println("yyyy-MM-dd HH:mm:ss".length());
+
+
+    }
+
 }

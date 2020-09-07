@@ -69,6 +69,20 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- 多数据源配置开始 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.21</version>
+        </dependency>
+        <!--主从配置依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        <!-- 多数据源配置结束 -->
     </dependencies>
 
     <build>
