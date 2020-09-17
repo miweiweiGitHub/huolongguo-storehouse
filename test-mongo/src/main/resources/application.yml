@@ -7,5 +7,5 @@ spring:
       host: 47.98.111.181
       port: 5000
       username: root
-      password: mongo@2020
+      password: mongo2020
       database: admin
