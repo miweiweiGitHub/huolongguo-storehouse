@@ -83,6 +83,25 @@
             <version>2.4.2</version>
         </dependency>
         <!-- 多数据源配置结束 -->
+
+
+        <!-- 操作excel -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>4.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

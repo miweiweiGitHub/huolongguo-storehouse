@@ -20,6 +20,7 @@
       <module>test-kafaka</module>
       <module>test-wx</module>
       <module>test-mongo</module>
+      <module>test-work-flow</module>
   </modules>
 
 
