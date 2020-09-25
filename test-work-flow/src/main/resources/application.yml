@@ -6,3 +6,20 @@ spring:
     multipart:
       max-file-size: 1MB
       max-request-size: 1MB
+
+
+  datasource:
+    url: jdbc:mysql://47.98.111.181:3307/studydb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+
+  # activiti default configuration
+  activiti:
+    database-schema-update: true
+    check-process-definitions: true
+    process-definition-location-prefix: classpath:/processes/
+    #    process-definition-location-suffixes:
+    #      - **.bpmn
+    #      - **.bpmn20.xml
+    history-level: full
