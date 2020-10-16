@@ -1,32 +1,21 @@
 package org.meteorite.com.domain;
 
-import com.opencsv.bean.CsvBindByName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /**
  * @author EX_052100260
  * @title: User
  * @projectName huolongguo-storehouse
  * @description: TODO
- * @date 2020-9-18 16:49
+ * @date 2020-10-10 9:50
  */
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class User {
-
-    @CsvBindByName(column = "name")
-    private String name;
-    @CsvBindByName(column = "age")
-    private String age;
-    @CsvBindByName(column = "phone")
-    private String phone;
-    @CsvBindByName(column = "country")
-    private String country;
-
-
+    private Integer id;
+    private String userName;
+    private String description;
+    //@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 }

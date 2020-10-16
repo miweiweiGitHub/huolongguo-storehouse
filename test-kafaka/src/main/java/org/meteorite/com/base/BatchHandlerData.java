@@ -1,7 +1,7 @@
 package org.meteorite.com.base;
 
 import org.apache.commons.lang3.CharEncoding;
-import org.meteorite.com.domain.User;
+import org.meteorite.com.domain.UserLocal;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class BatchHandlerData {
 
     public static void main(String[] args) {
-        Class beanClass = User.class;
+        Class beanClass = UserLocal.class;
         Map<String, Object> senders = new HashMap<>();
 
         InputStreamReader reader = null;
