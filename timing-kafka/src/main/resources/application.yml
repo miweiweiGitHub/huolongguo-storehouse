@@ -3,23 +3,28 @@ server:
 
 spring:
   redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 1
-    password: 123456
+    cluster:
+      nodes: 10.101.40.74:7000,10.101.40.74:7001,10.101.40.74:7002,10.101.40.75:7000,10.101.40.75:7001,10.101.40.75:7002
+      database: ${SPRING_REDIS_DATABASE:1}
+      password: aiVK8ffFCV71L14h
+#    host: localhost
+#    port: 6379
+#    database: 1
+#    password: 123456
   kafka:
     listener:
       concurrency: 5
     consumer:
       #是否自动提交偏移量
       enable-auto-commit: false
-      group-id: test-group
-      bootstrap-servers: 10.101.40.40:9092
+#      group-id: test-group
+      group-id: hdb-msg-push
+      bootstrap-servers: 10.101.40.40:9092,10.101.40.41:9092,10.101.40.42:9092
 #      bootstrap-servers: localhost:9092
       #指定消费策略(earliest|latest|none)
       auto-offset-reset: latest
       auto-commit-interval: 5000
-      max-poll-records: 100
+      max-poll-records: 600
       max-poll-interval: 300000
       session-timeout: 150000
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

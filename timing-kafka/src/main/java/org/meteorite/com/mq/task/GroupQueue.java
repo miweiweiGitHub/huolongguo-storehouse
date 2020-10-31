@@ -38,7 +38,7 @@ public class GroupQueue {
     @Autowired
     MqConfig mqConfig;
 
-    //    @Scheduled(cron = "0 0/1 * * * ? ")
+    @Scheduled(cron = "0 0/1 * * * ? ")
     public void producer() {
         log.info("begin producer !!!");
         new SimpleKafkaProducer().produce();
@@ -46,18 +46,18 @@ public class GroupQueue {
     }
 
 
-    @Scheduled(cron = "10 0/2 * * * ?")
+//    @Scheduled(cron = "0,59 13 9 31 * ? ")
     public void consumerByAssign() {
         log.info("begin consumerByAssign !!!");
-        String sizeRecord = localCache.read(CommonContant.KAFKA_MAX_POLL_RECORDS_CONFIG);
+//        String sizeRecord = localCache.read(CommonContant.KAFKA_MAX_POLL_RECORDS_CONFIG);
         Map map = mqConfig.consumerConfigs();
-        map.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, Integer.valueOf(sizeRecord));
+        map.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, Integer.valueOf(300));
         KafkaConsumer consumer =  new KafkaConsumer(map);
         try {
 
             HashSet<String> hashSet = new HashSet();
-            hashSet.add("test");
-            String read = localCache.read(CommonContant.KAFKA_PARTITION_BASIC_DATA);
+            hashSet.add(CommonContant.TOPIC);
+            String read = "[{\"partition\": 0,\"position\": 2109,\"topic\": \"MSG_PUSH-TOPIC\"},{\"partition\": 1,\"position\": 2111,\"topic\": \"MSG_PUSH-TOPIC\"}]";
 
             List<MyPatition> lastOffsets = JSONObject.parseArray(read, MyPatition.class);
 
@@ -69,7 +69,7 @@ public class GroupQueue {
                 topicPartitionHashSet.add(new TopicPartition(e.getTopic(), e.getPartition()));
 
                 consumer.assign(topicPartitionHashSet);
-                ConsumerRecords<String, String> records = consumer.poll(1000);
+                                    ConsumerRecords<String, String> records = consumer.poll(1000);
                 records.forEach(x -> {
                     log.info("records key:{},value:{},headers:{},offset:{},partition:{},topic:{}", x.key(), x.value(), x.headers(), x.offset(), x.partition(), x.topic());
                 });
@@ -97,16 +97,15 @@ public class GroupQueue {
         }
     }
 
-
+//    @Scheduled(cron = "10 0/2 * * * ?")
     public void consumerBySubscribe() throws FileNotFoundException, IOException {
         log.info("consumerBySubscribe start 。。。。。");
-        KafkaConsumer<String, String> consumer = null;
+        Map map = mqConfig.consumerConfigs();
+        KafkaConsumer consumer =  new KafkaConsumer(map);
         try {
-            consumer = KafkaConsumerFactory.getKafkaConsumer("test-group");
-            consumer.subscribe(Arrays.asList("test"));
+            consumer.subscribe(Arrays.asList(CommonContant.TOPIC));
             boolean y = true;
             while (true) {
-
                 ConsumerRecords<String, String> records = consumer.poll(100);
                 log.info("records:" + records);
                 for (TopicPartition partition : records.partitions()) {
@@ -119,7 +118,8 @@ public class GroupQueue {
 //                            if (this.handler != null)
 //                                this.handler.handle(record.offset(), record.key(), record.value());
                             // TODO insert db
-                            log.info("topic:{},record:{}", record.topic(), record);
+                            log.info("records key:{},value:{},headers:{},offset:{},partition:{},topic:{}",
+                                    record.key(), record.value(), record.headers(), record.offset(), record.partition(), record.topic());
                         }
                     } catch (Exception e) {
                         log.info("insert db filuer");
@@ -151,10 +151,7 @@ public class GroupQueue {
      */
 //    @Scheduled(cron = "0 0/1 * * * ?")
     private static Map<TopicPartition, Long> getLastOffsets(Set<String> topics) {
-        KafkaConsumer consumer = KafkaConsumerFactory.getKafkaConsumer("test-group");
-        HashSet<String> hashSet = new HashSet();
-        hashSet.add("test");
-
+        KafkaConsumer consumer = KafkaConsumerFactory.getKafkaConsumer("hdb-msg-push");
         Map<TopicPartition, Long> resultMap = new HashMap<TopicPartition, Long>();
         for (String topic : topics) {
             log.info("topic:{}", topic);

@@ -1,6 +1,5 @@
 package org.meteorite.com;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.TopicPartition;
 import org.meteorite.com.base.config.MyPatition;
@@ -35,7 +34,7 @@ public class ApplicationStartListener implements ApplicationListener<ContextRefr
         try {
             log.info("application init start...");
 
-            Map<TopicPartition, Long> test = kafkaBasicData.getLastOffsets(Collections.singleton("test"));
+            Map<TopicPartition, Long> test = kafkaBasicData.getLastOffsets(Collections.singleton(CommonContant.TOPIC));
 
             if (test==null) {
                 return;
@@ -48,9 +47,9 @@ public class ApplicationStartListener implements ApplicationListener<ContextRefr
                 myPatition.setPosition(v);
                 list.add(myPatition);
             });
-            localCache.save(CommonContant.KAFKA_PARTITION_BASIC_DATA, JSONObject.toJSONString(list));
+//            localCache.save(CommonContant.KAFKA_PARTITION_BASIC_DATA, JSONObject.toJSONString(list));
 
-            localCache.save(CommonContant.KAFKA_MAX_POLL_RECORDS_CONFIG, String.valueOf(600 / test.size()));
+//            localCache.save(CommonContant.KAFKA_MAX_POLL_RECORDS_CONFIG, String.valueOf(600 / test.size()));
 
             log.info("application init end...");
         } catch (Exception e) {

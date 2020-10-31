@@ -4,7 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
-import org.meteorite.com.base.config.KafkaConsumerFactory;
+import org.meteorite.com.base.config.MqConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -20,6 +21,8 @@ import java.util.*;
 @Slf4j
 public class KafkaBasicData {
 
+    @Autowired
+    MqConfig mqConfig;
     /**
      * 获取当前topic及消费者组上次消费的offset信息
      *
@@ -27,9 +30,8 @@ public class KafkaBasicData {
      * @return
      */
     public Map<TopicPartition, Long> getLastOffsets(Set<String> topics) {
-        KafkaConsumer consumer = KafkaConsumerFactory.getKafkaConsumer("test-group");
-        HashSet<String> hashSet = new HashSet();
-        hashSet.add("test");
+        Map map = mqConfig.consumerConfigs();
+        KafkaConsumer consumer =  new KafkaConsumer(map);
         Map<TopicPartition, Long> resultMap = new HashMap<TopicPartition, Long>();
         List<PartitionInfo> infos = new ArrayList<>();
         for (String topic : topics) {

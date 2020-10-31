@@ -88,7 +88,7 @@ public class MqConfig {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG,groupId);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,autoCommit);
-//        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,autoCommitInterval);
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG,autoCommitInterval);
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,maxPollRecords);
         props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG,maxPollInterval);
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,sessionTimeout);
