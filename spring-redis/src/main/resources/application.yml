@@ -1,0 +1,52 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-wait: 100000
+        max-idle: 10
+        max-active: 100
+    timeout: 5000
+
+## 集群
+#spring:
+#  redis:
+#    cluster:
+#      nodes: 10.101.40.74:7000,10.101.40.74:7001,10.101.40.74:7002,10.101.40.75:7000,10.101.40.75:7001,10.101.40.75:7002
+#    database: ${SPRING_REDIS_DATABASE:1}
+#    password: aiVK8ffFCV71L14h
+#    timeout: 5000
+#jetcache:
+#  # 统计间隔，默认0：表示不统计
+#  statIntervalMinutes: 0
+#  # areaName是否作为缓存key前缀，默认True
+#  areaInCacheName: true
+#  #  local:
+#  #    default:
+#  #      # 已支持可选：linkedhashmap、caffeine
+#  #      type: caffeine
+#  #      # key转换器的全局配置，当前只有：fastjson, @see com.alicp.jetcache.support.FastjsonKeyConvertor
+#  #      keyConvertor: fastjson
+#  #      # 每个缓存实例的最大元素的全局配置，仅local类型的缓存需要指定
+#  #      limit: 100
+#  #      # jetcache2.2以上，以毫秒为单位，指定多长时间没有访问，就让缓存失效，当前只有本地缓存支持。0表示不使用这个功能
+#  #      expireAfterAccessInMillis: 60000
+#  remote:
+#    default:
+#      # 已支持可选：redis、tair
+#      type: redis.lettuce
+#      # 连接格式@see：https://github.com/lettuce-io/lettuce-core/wiki/Redis-URI-and-connection-details
+#      uri:
+#        - redis://aiVK8ffFCV71L14h@10.101.40.74:7000
+#        - redis://aiVK8ffFCV71L14h@10.101.40.74:7001
+#        - redis://aiVK8ffFCV71L14h@10.101.40.74:7002
+#        - redis://aiVK8ffFCV71L14h@10.101.40.75:7000
+#        - redis://aiVK8ffFCV71L14h@10.101.40.75:7001
+#        - redis://aiVK8ffFCV71L14h@10.101.40.75:7002
+#      keyConvertor: fastjson
+#      # 序列化器的全局配置。仅remote类型的缓存需要指定，可选java和kryo
+#      valueEncoder: kryo
+#      valueDecoder: kryo
+#      # 以毫秒为单位指定超时时间的全局配置
+#      expireAfterWriteInMillis: 1800000

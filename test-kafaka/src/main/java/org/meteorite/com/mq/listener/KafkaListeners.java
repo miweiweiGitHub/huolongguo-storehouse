@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.meteorite.com.base.contants.Contants;
 import org.meteorite.com.domain.User;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Component
 public class KafkaListeners {
-    @KafkaListener(containerFactory = "kafkaBatchListener6",topics = {"#{'${kafka.listener.topics}'.split(',')[0]}"})
+//    @KafkaListener(containerFactory = "kafkaBatchListener6",topics = {"#{'${kafka.listener.topics}'.split(',')[0]}"})
     public void batchListener(List<ConsumerRecord<?,?>> records, Acknowledgment ack){
 
         List<User> userList = new ArrayList<>();

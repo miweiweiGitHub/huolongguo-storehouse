@@ -8,7 +8,6 @@ import org.meteorite.com.mq.sender.KafkaSender;
 import org.meteorite.com.service.MultiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -36,7 +35,7 @@ public class UserTask {
         this.KAFKA_SENDER = kafkaSender;
     }
 
-    @Scheduled(fixedRate = 10 * 1000)
+//    @Scheduled(fixedRate = 10 * 1000)
     public void addUserTask() {
         User user=new User();
         user.setUserName("HS");
