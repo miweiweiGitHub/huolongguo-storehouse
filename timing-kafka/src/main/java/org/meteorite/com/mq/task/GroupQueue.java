@@ -38,7 +38,7 @@ public class GroupQueue {
     @Autowired
     MqConfig mqConfig;
 
-    @Scheduled(cron = "0 27 * * * ? ")
+    @Scheduled(cron = "0/40 * * * * ? ")
     public void producer() {
         log.info("begin producer !!!");
         new SimpleKafkaProducer().produce();

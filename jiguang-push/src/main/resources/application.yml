@@ -1,0 +1,6 @@
+jiguang:
+  coral:
+    secret: 73dfcc61f0f52cbd61e975bc
+    key: 13212edcde242fbf014ae054
+    liveTime: 1000
+    apnsProduction: false

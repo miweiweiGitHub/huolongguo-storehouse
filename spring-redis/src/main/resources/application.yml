@@ -1,6 +1,6 @@
 spring:
   redis:
-    host: localhost
+    host: 47.98.111.181
     port: 6379
     lettuce:
       pool:

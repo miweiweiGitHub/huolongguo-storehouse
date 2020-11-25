@@ -44,9 +44,9 @@ public class SimpleKafkaProducer {
     public void produce() {
         for (int i = 0; i < 10; i++) {
             String key = UUID.randomUUID().toString();
-            String refId = "";
+            String refId = "{\"event\":\"visit_protect_over\",\"extEventParam\":{\"customerId\":\"1288594340561641472\"},\"messageParam\":{\"IMAIL\":{\"var1\":\"开哪上\"},\"PUSH\":{\"var1\":\"开哪上\"}},\"receiver\":[{\"uid\":\"1270183428859375616\",\"phone\":\"18476543082\"}]}";
             String phone = "18566503223";
-            String title = "{\"age\":24,\"brokerId\":1271280149131808800,\"brokerType\":0,\"createTime\":1591931781000,\"eventType\":\"login\",\"gender\":1,\"jpushId\":\"18171adc03ba55be8a9\",\"lbsCityCode\":\"440300\",\"memberLevel\":\"普通会员\",\"memberLevelCode\":0,\"mobilePhone\":\"13614785204\",\"name\":\"卢奇\",\"osType\":\"Web\",\"siteCityCode\":\"440300\",\"unionId\":\"3BF613132F14DEEB794BE9361049D6B7\",\"userType\":5}";
+            String title = "{\"appVersion\":\"1.0.0\",\"createTime\":1603173936000,\"customerId\":1318433163286106113,\"eventType\":\"login\",\"jpushId\":\"121c83f7609ec0df517\",\"lbsCityCode\":\"440300\",\"mobilePhone\":\"18676362041\",\"osType\":\"IOS\",\"siteCityCode\":\"440300\",\"unionId\":\"23E0CB21260CB04798FAB0D69A652415\"}";
             StringBuilder builder = new StringBuilder("{\"operation\":\"SEND_BY_ALIAS\",\"refId\":\"");
            builder.append("\",\"priority\":99,\"pushData\":{\"tags\":null,\"phone\":[");
            builder.append("\"],\"title\":\"");

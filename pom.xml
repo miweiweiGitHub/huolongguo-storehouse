@@ -23,6 +23,8 @@
       <module>test-work-flow</module>
       <module>timing-kafka</module>
       <module>spring-redis</module>
+      <module>local-redisson</module>
+      <module>jiguang-push</module>
   </modules>
 
 

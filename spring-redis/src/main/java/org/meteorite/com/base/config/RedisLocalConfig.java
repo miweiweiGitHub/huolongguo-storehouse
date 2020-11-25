@@ -1,4 +1,4 @@
-package org.meteorite.com.base;
+package org.meteorite.com.base.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @date 2020-11-5 20:02
  */
 @Configuration
-public class RedisConfig {
+public class RedisLocalConfig {
 
     @Bean
     public RedisTemplate initRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws Exception {

@@ -13,5 +13,5 @@ public class CommonContant {
     public static final String KAFKA_MAX_POLL_RECORDS_CONFIG = "kafka_max_poll_records_config";
 
     public static final String TOPIC = "MSG_PUSH-TOPIC";
-    public static final String MSG_TOPIC = "HDB_BROKER_LOGIN_LOGOUT";
+    public static final String MSG_TOPIC = "test";
 }
